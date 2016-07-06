@@ -1,0 +1,26 @@
+{
+  "name": "generator-wondermodule",
+  "version": "1.0.0",
+  "description": "Yeoman generator to create Wonderflow standard angular modules",
+  "main": "generators/app/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "wonderflow",
+    "yeoman-generator"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "generator-karma": "^2.0.0",
+    "yeoman-generator": "^0.23.4"
+  },
+  "devDependencies": {
+    "jasmine-core": "^2.4.1",
+    "karma": "^1.1.0",
+    "karma-jasmine": "^1.0.2",
+    "karma-phantomjs-launcher": "^1.0.1",
+    "phantomjs-prebuilt": "^2.1.7"
+  }
+}
