@@ -6,6 +6,7 @@ module.exports = generators.Base.extend({
 	    'karma:app', 
 	    {
 		options: {
+		    'template-path': __dirname + '/templates',
 		    'config-path': '.'
 		}
 	    }, 
