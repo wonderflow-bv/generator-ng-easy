@@ -1,3 +1,5 @@
+'use strict';
+
 var ejs = require('ejs');
 var fs = require('fs');
 var generators = require('yeoman-generator');
@@ -24,6 +26,7 @@ function generateDependencies() {
 
     // The module to testing
     dependencies.push(this.module.name + '.js');
+    dependencies.push('test/spec' + this.module.name + '.js');
 
     return dependencies;
 }
@@ -55,17 +58,6 @@ function writeNPMJson() {
     );
 }
 
-/**
- * Generate the angular module  in the root of project
- */
-function writeModule() {
-    this.fs.copyTpl(
-	this.templatePath('module.js'),
-	this.destinationPath(this.module.name + '.js'),
-	{module: this.module}
-    );
-}
-
 module.exports = generators.Base.extend({
     constructor: function () {
 	generators.Base.apply(this, arguments);
@@ -75,7 +67,6 @@ module.exports = generators.Base.extend({
 
 	this.generateDependencies = generateDependencies;
 	this.writeBowerJson = writeBowerJson;
-	this.writeModule = writeModule;
 	this.writeNPMJson = writeNPMJson;
     },
 
@@ -94,6 +85,11 @@ module.exports = generators.Base.extend({
 	    name: 'license',
 	    message: 'License',
 	    default: 'ISC'
+	}, {
+	    type: 'list',
+	    name: 'type',
+	    message: 'What you want:',
+	    choices: ['service', 'directive']
 	}]).then(function (answer) {
 	    this.module = answer;
 	}.bind(this));
@@ -102,7 +98,6 @@ module.exports = generators.Base.extend({
     configuring: function () {
 	this.writeBowerJson();
 	this.writeNPMJson();
-	this.writeModule();
 
 	// Generate the karma.conf.js file
 	this.composeWith(
@@ -116,9 +111,15 @@ module.exports = generators.Base.extend({
 	    },
 	    require.resolve('generator-karma/generators/app/index.js')
 	)
+	
+	this.composeWith(
+	    'ng-easy:'+this.module.type, 
+	    {args: [this.module.name]}
+	);
     },
 
     install: function () {
 	this.installDependencies();
     }
 });
+
