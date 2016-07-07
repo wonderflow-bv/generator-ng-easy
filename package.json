@@ -1,5 +1,5 @@
 {
-  "name": "generator-wondermodule",
+  "name": "generator-ng-easy",
   "version": "1.0.0",
   "description": "Yeoman generator to create Wonderflow standard angular modules",
   "main": "generators/app/index.js",
