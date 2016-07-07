@@ -26,7 +26,7 @@ function generateDependencies() {
 
     // The module to testing
     dependencies.push(this.module.name + '.js');
-    dependencies.push('test/spec' + this.module.name + '.js');
+    dependencies.push('test/spec/' + this.module.name + '.js');
 
     return dependencies;
 }
