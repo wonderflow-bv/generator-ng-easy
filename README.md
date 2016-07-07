@@ -1,4 +1,4 @@
-# Generator-wondermodule
+# Generator-ng-easy
 
 A Yeoman generator to create angular's model follow the Wonderflow's standard:
 - APP
