@@ -29,7 +29,7 @@ function generateDependencies() {
 }
 
 /**
- * Writhe the bower.json in the root of your module
+ * Generate the bower.json in the root of project
  */
 function writeBowerJson() {
     var self = this;
@@ -41,18 +41,27 @@ function writeBowerJson() {
 	if (err) {
 	    throw err;
 	} 
-	
-	self.log('Ok! The bower.json is writed with successful.');
     });
 }
 
 /**
- * Writhe the package.json in the root of your module
+ * Generate the package.json in the root of project
  */
 function writeNPMJson() {
     this.fs.copyTpl(
 	this.templatePath('package.json'),
 	this.destinationPath('package.json'),
+	{module: this.module}
+    );
+}
+
+/**
+ * Generate the angular module  in the root of project
+ */
+function writeModule() {
+    this.fs.copyTpl(
+	this.templatePath('module.js'),
+	this.destinationPath(this.module.name + '.js'),
 	{module: this.module}
     );
 }
@@ -66,6 +75,7 @@ module.exports = generators.Base.extend({
 
 	this.generateDependencies = generateDependencies;
 	this.writeBowerJson = writeBowerJson;
+	this.writeModule = writeModule;
 	this.writeNPMJson = writeNPMJson;
     },
 
@@ -92,6 +102,7 @@ module.exports = generators.Base.extend({
     configuring: function () {
 	this.writeBowerJson();
 	this.writeNPMJson();
+	this.writeModule();
 
 	// Generate the karma.conf.js file
 	this.composeWith(
